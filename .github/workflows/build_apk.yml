@@ -37,19 +37,15 @@ jobs:
           echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode \
             > android/app/jollyshop.keystore
 
-      - name: Build release APK
-        env:
-          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
-          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
-          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+      - name: Create key.properties
         run: |
-          flutter build apk --release \
-            --dart-define=FLUTTER_BUILD_NUMBER=${{ github.run_number }} \
-            -- \
-            -Pandroid.injected.signing.store.file=$GITHUB_WORKSPACE/android/app/jollyshop.keystore \
-            -Pandroid.injected.signing.store.password=$KEYSTORE_PASSWORD \
-            -Pandroid.injected.signing.key.alias=$KEY_ALIAS \
-            -Pandroid.injected.signing.key.password=$KEY_PASSWORD
+          echo "storeFile=jollyshop.keystore"                      > android/key.properties
+          echo "storePassword=${{ secrets.KEYSTORE_PASSWORD }}"   >> android/key.properties
+          echo "keyAlias=${{ secrets.KEY_ALIAS }}"                 >> android/key.properties
+          echo "keyPassword=${{ secrets.KEY_PASSWORD }}"           >> android/key.properties
+
+      - name: Build release APK
+        run: flutter build apk --release
 
       - name: Rename APK
         run: |
