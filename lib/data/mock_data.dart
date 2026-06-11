@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/product.dart';
 import '../models/category.dart';
-import '../theme/app_theme.dart';
+import '../core/constants/app_colors.dart';
 
 class MockData {
   static const List<Category> categories = [

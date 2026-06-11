@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../data/mock_data.dart';
 import '../models/category.dart';
-import '../theme/app_theme.dart';
+import '../core/constants/app_colors.dart';
 import '../widgets/product_card.dart';
 import '../widgets/promo_banner.dart';
 import '../widgets/section_header.dart';
@@ -57,11 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
         background: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           child: Row(
-            children: [
-              _buildLogo(),
-              const Spacer(),
-              _buildAppBarActions(),
-            ],
+            children: [_buildLogo(), const Spacer(), _buildAppBarActions()],
           ),
         ),
       ),
@@ -146,7 +142,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: AppColors.accentPink,
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: const Icon(Icons.tune_rounded, color: Colors.white, size: 18),
+              child: const Icon(
+                Icons.tune_rounded,
+                color: Colors.white,
+                size: 18,
+              ),
             ),
           ),
         ),
@@ -253,9 +253,13 @@ class _HomeScreenState extends State<HomeScreen> {
               itemBuilder: (context, index) {
                 return Padding(
                   padding: EdgeInsets.only(
-                    right: index < MockData.flashSaleProducts.length - 1 ? 12 : 0,
+                    right: index < MockData.flashSaleProducts.length - 1
+                        ? 12
+                        : 0,
                   ),
-                  child: ProductCard(product: MockData.flashSaleProducts[index]),
+                  child: ProductCard(
+                    product: MockData.flashSaleProducts[index],
+                  ),
                 );
               },
             ),
@@ -290,10 +294,7 @@ class _HomeScreenState extends State<HomeScreen> {
               itemCount: MockData.newArrivalProducts.length,
               itemBuilder: (context, index) {
                 final product = MockData.newArrivalProducts[index];
-                return ProductCard(
-                  product: product,
-                  width: double.infinity,
-                );
+                return ProductCard(product: product, width: double.infinity);
               },
             ),
           ),
@@ -390,7 +391,7 @@ class _CategoryItem extends StatelessWidget {
                           color: AppColors.accentPink.withAlpha(80),
                           blurRadius: 8,
                           offset: const Offset(0, 4),
-                        )
+                        ),
                       ]
                     : [],
               ),
@@ -406,7 +407,9 @@ class _CategoryItem extends StatelessWidget {
               style: TextStyle(
                 fontSize: 11,
                 fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-                color: isSelected ? AppColors.accentPink : AppColors.textSecondary,
+                color: isSelected
+                    ? AppColors.accentPink
+                    : AppColors.textSecondary,
               ),
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
@@ -423,11 +426,7 @@ class _IconButton extends StatelessWidget {
   final String? badge;
   final VoidCallback onTap;
 
-  const _IconButton({
-    required this.icon,
-    this.badge,
-    required this.onTap,
-  });
+  const _IconButton({required this.icon, this.badge, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -480,9 +479,15 @@ class _FlashSaleCountdown extends StatelessWidget {
     return Row(
       children: [
         _TimeBox(value: '01'),
-        const Text(' : ', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+        const Text(
+          ' : ',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+        ),
         _TimeBox(value: '42'),
-        const Text(' : ', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+        const Text(
+          ' : ',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+        ),
         _TimeBox(value: '30'),
       ],
     );

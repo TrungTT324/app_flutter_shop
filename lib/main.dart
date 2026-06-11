@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'screens/home_screen.dart';
-import 'theme/app_theme.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'core/router/app_router.dart';
+import 'core/theme/app_theme.dart';
 
 void main() {
-  runApp(const JollyShopApp());
+  runApp(const ProviderScope(child: JollyShopApp()));
 }
 
 class JollyShopApp extends StatelessWidget {
@@ -11,11 +12,11 @@ class JollyShopApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'JollyShop',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
-      home: const HomeScreen(),
+      routerConfig: appRouter,
     );
   }
 }

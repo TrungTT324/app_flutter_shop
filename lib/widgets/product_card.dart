@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/product.dart';
-import '../theme/app_theme.dart';
+import '../core/constants/app_colors.dart';
 
 class ProductCard extends StatefulWidget {
   final Product product;
@@ -129,14 +129,13 @@ class _ProductCardState extends State<ProductCard> {
                 color: Colors.white,
                 shape: BoxShape.circle,
                 boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withAlpha(15),
-                    blurRadius: 6,
-                  ),
+                  BoxShadow(color: Colors.black.withAlpha(15), blurRadius: 6),
                 ],
               ),
               child: Icon(
-                _isFavorite ? Icons.favorite_rounded : Icons.favorite_border_rounded,
+                _isFavorite
+                    ? Icons.favorite_rounded
+                    : Icons.favorite_border_rounded,
                 size: 16,
                 color: _isFavorite ? AppColors.accentPink : AppColors.textHint,
               ),
@@ -165,7 +164,11 @@ class _ProductCardState extends State<ProductCard> {
         const SizedBox(height: 4),
         Row(
           children: [
-            const Icon(Icons.star_rounded, size: 13, color: AppColors.starYellow),
+            const Icon(
+              Icons.star_rounded,
+              size: 13,
+              color: AppColors.starYellow,
+            ),
             const SizedBox(width: 2),
             Text(
               product.rating.toString(),
@@ -177,10 +180,7 @@ class _ProductCardState extends State<ProductCard> {
             ),
             Text(
               ' (${_formatCount(product.reviewCount)})',
-              style: const TextStyle(
-                fontSize: 11,
-                color: AppColors.textHint,
-              ),
+              style: const TextStyle(fontSize: 11, color: AppColors.textHint),
             ),
           ],
         ),
@@ -217,9 +217,9 @@ class _ProductCardState extends State<ProductCard> {
 
   String _formatPrice(double price) {
     final formatted = price.toInt().toString().replaceAllMapped(
-          RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-          (m) => '${m[1]}.',
-        );
+      RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+      (m) => '${m[1]}.',
+    );
     return '₫$formatted';
   }
 

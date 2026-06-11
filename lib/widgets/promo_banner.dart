@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../theme/app_theme.dart';
+import '../core/constants/app_colors.dart';
 
 class PromoBanner extends StatefulWidget {
   final List<Map<String, String>> banners;
@@ -62,7 +62,9 @@ class _PromoBannerState extends State<PromoBanner> {
               width: _currentPage == i ? 20 : 6,
               height: 6,
               decoration: BoxDecoration(
-                color: _currentPage == i ? AppColors.accentPink : AppColors.primaryPink,
+                color: _currentPage == i
+                    ? AppColors.accentPink
+                    : AppColors.primaryPink,
                 borderRadius: BorderRadius.circular(3),
               ),
             );
@@ -107,10 +109,7 @@ class _BannerCard extends StatelessWidget {
           Positioned(
             right: -10,
             bottom: -10,
-            child: Text(
-              emoji,
-              style: const TextStyle(fontSize: 100),
-            ),
+            child: Text(emoji, style: const TextStyle(fontSize: 100)),
           ),
           Padding(
             padding: const EdgeInsets.all(20),
@@ -119,7 +118,10 @@ class _BannerCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 4,
+                  ),
                   decoration: BoxDecoration(
                     color: AppColors.accentPink,
                     borderRadius: BorderRadius.circular(20),
@@ -160,7 +162,10 @@ class _BannerCard extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.accentPink,
                         foregroundColor: Colors.white,
-                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 8,
+                        ),
                         minimumSize: Size.zero,
                         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         shape: RoundedRectangleBorder(

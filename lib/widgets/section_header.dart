@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../theme/app_theme.dart';
+import '../core/constants/app_colors.dart';
 
 class SectionHeader extends StatelessWidget {
   final String title;
@@ -47,7 +47,10 @@ class SectionHeader extends StatelessWidget {
             GestureDetector(
               onTap: onSeeAll,
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 6,
+                ),
                 decoration: BoxDecoration(
                   color: AppColors.primaryPink,
                   borderRadius: BorderRadius.circular(20),
