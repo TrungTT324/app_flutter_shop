@@ -1,0 +1,36 @@
+{
+  "files.exclude": {
+    // Build output
+    "build/": true,
+
+    // Dart/Flutter tool cache
+    ".dart_tool/": true,
+
+    // IDE configs
+    ".idea/": true,
+    ".metadata": true,
+    "*.iml": true,
+
+    // Platform folders
+    "android/": true,
+    "ios/": true,
+    "linux/": true,
+    "macos/": true,
+    "windows/": true,
+    "web/": true,
+
+    // Log & ảnh kết quả tạm
+    "agent.log": true,
+    "*.jpg": true,
+
+    // Dart lock (ít khi cần xem)
+    "pubspec.lock": true
+  },
+
+  "search.exclude": {
+    "build/": true,
+    ".dart_tool/": true,
+    ".idea/": true,
+    "pubspec.lock": true
+  }
+}
