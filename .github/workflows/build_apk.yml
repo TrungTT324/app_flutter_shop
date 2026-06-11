@@ -1,0 +1,63 @@
+name: build_apk
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build Debug APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: stable
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build debug APK
+        run: flutter build apk --debug
+
+      - name: Rename APK
+        run: |
+          VERSION=$(grep '^version:' pubspec.yaml | awk '{print $2}')
+          BUILD_DATE=$(date +'%Y%m%d-%H%M')
+          mv build/app/outputs/flutter-apk/app-debug.apk \
+             build/app/outputs/flutter-apk/jollyshop-debug-${VERSION}-${BUILD_DATE}.apk
+          echo "APK_NAME=jollyshop-debug-${VERSION}-${BUILD_DATE}.apk" >> $GITHUB_ENV
+          echo "VERSION=${VERSION}" >> $GITHUB_ENV
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: debug-${{ github.run_number }}
+          name: "Debug Build #${{ github.run_number }} (v${{ env.VERSION }})"
+          body: |
+            ## Debug APK — Build #${{ github.run_number }}
+
+            **Branch:** `${{ github.ref_name }}`
+            **Commit:** ${{ github.sha }}
+            **Build time:** ${{ github.event.head_commit.timestamp }}
+
+            ### Cài đặt
+            1. Tải file APK bên dưới
+            2. Bật **Cài đặt từ nguồn không rõ** trên Android
+            3. Mở file APK để cài
+          files: build/app/outputs/flutter-apk/${{ env.APK_NAME }}
+          prerelease: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
